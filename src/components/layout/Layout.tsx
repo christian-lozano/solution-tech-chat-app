@@ -4,6 +4,9 @@ import { ReactNode, useEffect, useState } from 'react';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { ThemeToggle } from '@/components/common/ThemeToggle';
+import { MobileSidebar } from './MobileSidebar';
+import { DesktopSidebar } from './DesktopSidebar';
+import { MobileChatHistory } from '@/components/chat/MobileChatHistory';
 
 interface LayoutProps {
   children: ReactNode;
@@ -34,31 +37,53 @@ export function Layout({ children, sidebar, header, className }: LayoutProps) {
       "flex h-screen bg-background text-foreground",
       className
     )}>
-      {/* Sidebar */}
+      {/* Sidebars */}
       {sidebar && (
         <>
-          {/* Mobile overlay */}
-          <div
-            className={cn(
-              "fixed inset-0 z-40 bg-black transition-opacity md:hidden",
-              isSidebarOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
-            )}
-            onClick={closeSidebar}
-            aria-hidden="true"
-          />
+          {/* Mobile Sidebar */}
+          <MobileSidebar isOpen={isSidebarOpen} onClose={closeSidebar}>
+            <MobileChatHistory
+              onSelectChat={(chatId) => {
+                // Aquí necesitarías pasar las props del ChatHistory original
+                // Por ahora usamos el sidebar original
+                if (typeof sidebar === 'object' && sidebar && 'props' in sidebar) {
+                  const originalProps = (sidebar as any).props;
+                  if (originalProps.onSelectChat) {
+                    originalProps.onSelectChat(chatId);
+                  }
+                }
+                closeSidebar();
+              }}
+              onNewChat={() => {
+                if (typeof sidebar === 'object' && sidebar && 'props' in sidebar) {
+                  const originalProps = (sidebar as any).props;
+                  if (originalProps.onNewChat) {
+                    originalProps.onNewChat();
+                  }
+                }
+                closeSidebar();
+              }}
+              onChatDeleted={(chatId) => {
+                if (typeof sidebar === 'object' && sidebar && 'props' in sidebar) {
+                  const originalProps = (sidebar as any).props;
+                  if (originalProps.onChatDeleted) {
+                    originalProps.onChatDeleted(chatId);
+                  }
+                }
+              }}
+              currentChatId={
+                typeof sidebar === 'object' && sidebar && 'props' in sidebar
+                  ? (sidebar as any).props.currentChatId
+                  : undefined
+              }
+              onClose={closeSidebar}
+            />
+          </MobileSidebar>
 
-          {/* Sidebar panel */}
-          <aside 
-            id="sidebar"
-            className={cn(
-              "fixed inset-y-0 left-0 z-50 w-72 border-r bg-card transition-transform duration-300 md:static md:z-auto md:w-80",
-              isSidebarOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"
-            )}
-            role="navigation"
-            aria-label="Navegación principal"
-          >
+          {/* Desktop Sidebar */}
+          <DesktopSidebar>
             {sidebar}
-          </aside>
+          </DesktopSidebar>
         </>
       )}
       
@@ -77,7 +102,7 @@ export function Layout({ children, sidebar, header, className }: LayoutProps) {
                 <Button
                   type="button"
                   variant="outline"
-                 
+                  size="sm"
                   className="md:hidden border bg-card text-foreground hover:bg-muted"
                   aria-label={isSidebarOpen ? "Cerrar menú" : "Abrir menú"}
                   aria-pressed={isSidebarOpen}
@@ -88,15 +113,15 @@ export function Layout({ children, sidebar, header, className }: LayoutProps) {
                     aria-hidden="true"
                   >
                     <span className={cn(
-                      "absolute inset-x-0 top-0 h-0.5  transition-transform bg-gray-700",
+           "absolute inset-x-0 top-0 h-0.5  transition-transform bg-gray-700",
                       isSidebarOpen && "translate-y-1.5 rotate-45 bg-gray-700"
                     )} />
                     <span className={cn(
-                      "absolute inset-x-0 top-1.5 h-0.5  transition-opacity bg-gray-700",
+                   "absolute inset-x-0 top-1.5 h-0.5  transition-opacity bg-gray-700",
                       isSidebarOpen && "opacity-0"
                     )} />
                     <span className={cn(
-                      "absolute inset-x-0 top-3 h-0.5  transition-transform bg-gray-700",
+                    "absolute inset-x-0 top-3 h-0.5  transition-transform bg-gray-700",
                       isSidebarOpen && "-translate-y-1.5 -rotate-45"
                     )} />
                   </span>
