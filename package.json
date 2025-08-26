@@ -1,0 +1,45 @@
+{
+  "name": "solution-tech-chat-app",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev --turbopack",
+    "build": "next build --turbopack",
+    "start": "next start",
+    "lint": "eslint",
+    "msw:init": "node scripts/init-msw.js",
+    "msw:test": "node scripts/test-msw.js",
+    "postinstall": "pnpm msw:init"
+  },
+  "dependencies": {
+    "@radix-ui/react-dropdown-menu": "^2.0.0",
+    "@radix-ui/react-scroll-area": "^1.0.0",
+    "@radix-ui/react-slot": "^1.0.0",
+    "@tanstack/react-query": "^5.0.0",
+    "class-variance-authority": "^0.7.0",
+    "clsx": "^2.0.0",
+    "date-fns": "^3.6.0",
+    "lucide-react": "^0.400.0",
+    "next": "15.5.0",
+    "react": "19.1.0",
+    "react-dom": "19.1.0",
+    "tailwind-merge": "^2.0.0",
+    "use-debounce": "^10.0.0",
+    "uuid": "^9.0.0",
+    "zod": "^3.22.0"
+  },
+  "devDependencies": {
+    "@eslint/eslintrc": "^3",
+    "@tailwindcss/postcss": "^4",
+    "@tanstack/react-query-devtools": "^5.85.5",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "@types/uuid": "^9.0.0",
+    "eslint": "^9",
+    "eslint-config-next": "15.5.0",
+    "msw": "^2.10.5",
+    "tailwindcss": "^4",
+    "typescript": "^5"
+  }
+}
