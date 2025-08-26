@@ -15,6 +15,13 @@ interface LayoutProps {
   className?: string;
 }
 
+interface ChatHistoryProps {
+  onSelectChat: (chatId: string) => void;
+  onNewChat: () => void;
+  onChatDeleted: (chatId: string) => void;
+  currentChatId?: string;
+}
+
 export function Layout({ children, sidebar, header, className }: LayoutProps) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
@@ -42,42 +49,41 @@ export function Layout({ children, sidebar, header, className }: LayoutProps) {
         <>
           {/* Mobile Sidebar */}
           <MobileSidebar isOpen={isSidebarOpen} onClose={closeSidebar}>
-            <MobileChatHistory
-              onSelectChat={(chatId) => {
-                // Aquí necesitarías pasar las props del ChatHistory original
-                // Por ahora usamos el sidebar original
-                if (typeof sidebar === 'object' && sidebar && 'props' in sidebar) {
-                  const originalProps = (sidebar as any).props;
-                  if (originalProps.onSelectChat) {
-                    originalProps.onSelectChat(chatId);
-                  }
-                }
-                closeSidebar();
-              }}
-              onNewChat={() => {
-                if (typeof sidebar === 'object' && sidebar && 'props' in sidebar) {
-                  const originalProps = (sidebar as any).props;
-                  if (originalProps.onNewChat) {
-                    originalProps.onNewChat();
-                  }
-                }
-                closeSidebar();
-              }}
-              onChatDeleted={(chatId) => {
-                if (typeof sidebar === 'object' && sidebar && 'props' in sidebar) {
-                  const originalProps = (sidebar as any).props;
-                  if (originalProps.onChatDeleted) {
-                    originalProps.onChatDeleted(chatId);
-                  }
-                }
-              }}
-              currentChatId={
-                typeof sidebar === 'object' && sidebar && 'props' in sidebar
-                  ? (sidebar as any).props.currentChatId
-                  : undefined
-              }
-              onClose={closeSidebar}
-            />
+                         <MobileChatHistory
+               onSelectChat={(chatId) => {
+                 // Extraer props del ChatHistory original de forma segura
+                 if (sidebar && typeof sidebar === 'object' && 'props' in sidebar) {
+                   const originalProps = sidebar.props as ChatHistoryProps;
+                   if (originalProps.onSelectChat) {
+                     originalProps.onSelectChat(chatId);
+                   }
+                 }
+                 closeSidebar();
+               }}
+               onNewChat={() => {
+                 if (sidebar && typeof sidebar === 'object' && 'props' in sidebar) {
+                   const originalProps = sidebar.props as ChatHistoryProps;
+                   if (originalProps.onNewChat) {
+                     originalProps.onNewChat();
+                   }
+                 }
+                 closeSidebar();
+               }}
+               onChatDeleted={(chatId) => {
+                 if (sidebar && typeof sidebar === 'object' && 'props' in sidebar) {
+                   const originalProps = sidebar.props as ChatHistoryProps;
+                   if (originalProps.onChatDeleted) {
+                     originalProps.onChatDeleted(chatId);
+                   }
+                 }
+               }}
+               currentChatId={
+                 sidebar && typeof sidebar === 'object' && 'props' in sidebar
+                   ? (sidebar.props as ChatHistoryProps).currentChatId
+                   : undefined
+               }
+               onClose={closeSidebar}
+             />
           </MobileSidebar>
 
           {/* Desktop Sidebar */}

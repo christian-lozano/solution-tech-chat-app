@@ -126,7 +126,7 @@ export function ChatHistory({ onSelectChat, onNewChat, onChatDeleted, currentCha
                {isLoadingSearch ? (
                  'Buscando...'
                ) : (
-                 <span className="truncate">{chatsToShow.length} resultado(s) para "{searchQuery}"</span>
+                                   <span className="truncate">{chatsToShow.length} resultado(s) para &quot;{searchQuery}&quot;</span>
                )}
              </div>
            </div>

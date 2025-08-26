@@ -97,9 +97,9 @@ export function MobileChatHistory({
     <div className="flex flex-col h-full bg-background">
       {/* Mobile Header */}
       <div className="flex items-center justify-between p-4 border-b border-border bg-muted/20">
-        <div className="flex items-center gap-2">
-          <MessageSquare className="h-5 w-5 text-primary text-gray-200" />
-          <h2 className="text-lg font-semibold text-gray-200">Conversaciones</h2>
+                 <div className="flex items-center gap-2">
+           <MessageSquare className="h-5 w-5 text-primary" />
+           <h2 className="text-lg font-semibold text-foreground">Conversaciones</h2>
         </div>
         <div className="flex items-center gap-2">
           <Button 
@@ -124,7 +124,7 @@ export function MobileChatHistory({
       
       {/* Search Bar */}
       <div className="p-4 border-b border-border bg-muted/10">
-        <div className="relative text-gray-200">
+                 <div className="relative">
           <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
           <Input
           
@@ -139,7 +139,7 @@ export function MobileChatHistory({
       {/* Search Results Header */}
       {isSearching && (
         <div className="px-4 py-2 bg-primary/10 border-b border-border">
-          <div className="flex items-center gap-2 text-sm text-muted-foreground text-gray-200">
+                     <div className="flex items-center gap-2 text-sm text-muted-foreground">
             <Search className="h-4 w-4" />
             {isLoadingSearch ? (
               'Buscando...'
@@ -163,8 +163,8 @@ export function MobileChatHistory({
             ) : (
               <div>
                 <MessageSquare className="h-12 w-12 mx-auto mb-4 opacity-50" />
-                <p className="text-base text-gray-200">No hay conversaciones</p>
-                <p className="text-sm text-gray-200" >Inicia tu primera conversación</p>
+                                 <p className="text-base text-foreground">No hay conversaciones</p>
+                 <p className="text-sm text-muted-foreground">Inicia tu primera conversación</p>
               </div>
             )}
           </div>
@@ -180,16 +180,16 @@ export function MobileChatHistory({
               >
                 <div className="flex items-start justify-between gap-3">
                   <div className="flex-1 min-w-0">
-                    <h3 className="font-medium truncate text-base text-gray-200">{chat.title}</h3>
-                    <p className="text-sm text-muted-foreground truncate mt-1 text-gray-200">
+                                         <h3 className="font-medium truncate text-base text-foreground">{chat.title}</h3>
+                     <p className="text-sm text-muted-foreground truncate mt-1">
                       {getLastMessagePreview(chat)}
                     </p>
                     <div className="flex items-center gap-3 mt-2 text-xs text-muted-foreground">
-                      <span className="flex items-center gap-1 text-gray-200">
-                        <Clock className="h-3 w-3" />
-                        {formatChatDate(chat.updatedAt)}
-                      </span>
-                      <span className="flex items-center gap-1 text-gray-200">
+                                             <span className="flex items-center gap-1 text-muted-foreground">
+                         <Clock className="h-3 w-3" />
+                         {formatChatDate(chat.updatedAt)}
+                       </span>
+                       <span className="flex items-center gap-1 text-muted-foreground">
                         <MessageSquare className="h-3 w-3" />
                         {chat.messages.length}
                       </span>
@@ -198,7 +198,7 @@ export function MobileChatHistory({
                   
                   {/* Unread indicator */}
                   {'unreadCount' in chat && (chat as unknown as { unreadCount?: number }).unreadCount! > 0 && (
-                    <div className="bg-primary text-primary-foreground text-xs rounded-full h-5 w-5 flex items-center justify-center flex-shrink-0 text-gray-200">
+                                         <div className="bg-primary text-primary-foreground text-xs rounded-full h-5 w-5 flex items-center justify-center flex-shrink-0">
                       {(chat as unknown as { unreadCount?: number }).unreadCount}
                     </div>
                   )}
@@ -221,7 +221,7 @@ export function MobileChatHistory({
       
       {/* Footer */}
       {!isSearching && historyData && (
-        <div className="p-4 text-center text-sm text-muted-foreground bg-muted/20 border-t border-border text-gray-200">
+                 <div className="p-4 text-center text-sm text-muted-foreground bg-muted/20 border-t border-border">
           {historyData.total} conversación(es) total
         </div>
       )}

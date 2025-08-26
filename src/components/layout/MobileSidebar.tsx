@@ -35,7 +35,7 @@ export function MobileSidebar({ isOpen, onClose, children }: MobileSidebarProps)
       >
         {/* Mobile header */}
         <div className="flex items-center justify-between p-4 border-b border-border bg-muted/30">
-          <h2 className="text-lg font-semibold text-foreground text-gray-200">Menú</h2>
+                     <h2 className="text-lg font-semibold text-foreground">Menú</h2>
           <Button
             variant="ghost"
             size="sm"

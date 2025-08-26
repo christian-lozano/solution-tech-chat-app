@@ -87,14 +87,14 @@ export default function Home() {
       header={
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-xl font-semibold">SOLUTION TECH</h1>
-            <p className="text-sm text-muted-foreground">
+            <h1 className="xl:text-xl text-sm font-semibold">SOLUTION TECH</h1>
+            <p className="xl:text-sm text-xs text-muted-foreground">
               Chat Empresarial - {totalChats} conversación{totalChats !== 1 ? 'es' : ''}
             </p>
           </div>
-          <div className="text-sm text-muted-foreground">
+          {/* <div className="text-sm  text-muted-foreground">
             💬 Nueva conversación
-          </div>
+          </div> */}
         </div>
       }
     >
